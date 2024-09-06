@@ -10,12 +10,6 @@ sub x y = x - y
 
 mul x y = x * y
 
-mul1 x y | trace ("mul1 called with " ++ show x ++ " " ++ show y) False = undefined
-mul1 0 _ = 0
-mul1 _ 0 = 0
-mul1 1 x = x
-mul1 x 1 = x
-mul1 x y = x + mul1 x (y - 1)
 
 divi x y = x `div` y
 
@@ -60,6 +54,13 @@ fac n
   | n == 0 = 1
   | otherwise = n * fac (n - 1)
 
+mul1 x y | trace ("mul1 called with " ++ show x ++ " " ++ show y) False = undefined
+mul1 0 _ = 0
+mul1 _ 0 = 0
+mul1 1 x = x
+mul1 x 1 = x
+mul1 x y = x + mul1 x (y - 1)
+
 myFindIndexHelper (x: xs) n ele | trace ("x and n: " ++ show x ++ " " ++ show n) False = undefined
 myFindIndexHelper [] _ _ = -1
 myFindIndexHelper (x : xs) n ele = 
@@ -78,3 +79,8 @@ findMaxElement (x : xs) = findMaxElementHelper xs x
 
 myReverse [] = []
 myReverse (x:xs) = myReverse xs ++ [x]
+
+myTake _ [] = []
+myTake x (y:ys)
+  | x <= 0 = []
+  | otherwise = y : myTake (x - 1) ys
