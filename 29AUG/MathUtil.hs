@@ -88,3 +88,12 @@ myTake _ [] = []
 myTake x (y : ys)
   | x <= 0 = []
   | otherwise = y : myTake (x - 1) ys
+
+{- List Ops -}
+splitByConditionHelper [] _ res = res
+splitByConditionHelper (x : xs) c (leftList, rightList) =
+  if c x
+    then splitByConditionHelper xs c (leftList ++ [x], rightList)
+    else splitByConditionHelper xs c (leftList, x : rightList)
+
+splitByCondition xs c = splitByConditionHelper xs c ([], [])
