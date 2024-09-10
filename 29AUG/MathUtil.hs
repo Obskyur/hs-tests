@@ -4,12 +4,12 @@ import Debug.Trace
 
 -- Arithmetic:
 add x y = x + y
+
 inc1 = add 1
 
 sub x y = x - y
 
 mul x y = x * y
-
 
 divi x y = x `div` y
 
@@ -27,15 +27,17 @@ len3 xs
 
 len4 xs = case xs of
   [] -> 0
-  (_:ys) -> 1 + len4 ys
+  (_ : ys) -> 1 + len4 ys
 
 listConcat xs ys = xs ++ ys
 
 {- Map -}
 incrementList xs = map inc1 xs
+
 -- shorthand:
 -- incrementList = map inc1
 squareList xs = map (\x -> x * x) xs
+
 -- shorthand:
 -- squareList = map (\x -> x * x)
 
@@ -61,11 +63,13 @@ mul1 1 x = x
 mul1 x 1 = x
 mul1 x y = x + mul1 x (y - 1)
 
-myFindIndexHelper (x: xs) n ele | trace ("x and n: " ++ show x ++ " " ++ show n) False = undefined
+myFindIndexHelper (x : xs) n ele | trace ("x and n: " ++ show x ++ " " ++ show n) False = undefined
 myFindIndexHelper [] _ _ = -1
-myFindIndexHelper (x : xs) n ele = 
-  if ele == x then n 
-  else myFindIndexHelper xs (n + 1) ele
+myFindIndexHelper (x : xs) n ele =
+  if ele == x
+    then n
+    else myFindIndexHelper xs (n + 1) ele
+
 myFindIndex xs ele = myFindIndexHelper xs 0 ele
 
 -- Write findMaxElement function that finds the maximum element in a list.
@@ -78,9 +82,9 @@ findMaxElement [] = -1
 findMaxElement (x : xs) = findMaxElementHelper xs x
 
 myReverse [] = []
-myReverse (x:xs) = myReverse xs ++ [x]
+myReverse (x : xs) = myReverse xs ++ [x]
 
 myTake _ [] = []
-myTake x (y:ys)
+myTake x (y : ys)
   | x <= 0 = []
   | otherwise = y : myTake (x - 1) ys
