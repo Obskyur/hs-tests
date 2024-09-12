@@ -93,7 +93,21 @@ myTake x (y : ys)
 splitByConditionHelper [] _ res = res
 splitByConditionHelper (x : xs) c (leftList, rightList) =
   if c x
-    then splitByConditionHelper xs c (leftList ++ [x], rightList)
-    else splitByConditionHelper xs c (leftList, x : rightList)
+    then splitByConditionHelper xs c (leftList ++ [x], rightList) -- less efficient due to list copying
+    else splitByConditionHelper xs c (leftList, x : rightList) -- more efficient than leftList ++ [x]
 
 splitByCondition xs c = splitByConditionHelper xs c ([], [])
+
+pTriples =
+  [ (x, y, z)
+    | x <- [1 .. 100],
+      y <- [1 .. 100],
+      z <- [1 .. 100],
+      x ^ 2 + y ^ 2 == z ^ 2
+  ] -- Pythagorean triples
+
+nestedList :: [[Int]]
+nestedList = [[1 .. n] | n <- [1 .. 5]] -- [[1], [1, 2], [1, 2, 3], [1, 2, 3, 4], [1, 2, 3, 4, 5]]
+
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs) -- infinite list of fibonacci numbers, use 'take 10 fibs' to get first 10 fibonacci numbers
+
