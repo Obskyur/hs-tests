@@ -63,11 +63,15 @@ mul1 1 x = x
 mul1 x 1 = x
 mul1 x y = x + mul1 x (y - 1)
 
-myFindIndexHelper (x : xs) n ele | trace ("x and n: " ++ show x ++ " " ++ show n) False = undefined
-myFindIndexHelper [] _ _ = -1
+
+data MightBe = Empty | Have Int
+  deriving (Show)
+
+-- myFindIndexHelper (x : xs) n ele | trace ("x and n: " ++ show x ++ " " ++ show n) False = undefined
+myFindIndexHelper [] _ _ = Empty
 myFindIndexHelper (x : xs) n ele =
   if ele == x
-    then n
+    then Have n
     else myFindIndexHelper xs (n + 1) ele
 
 myFindIndex xs ele = myFindIndexHelper xs 0 ele
@@ -111,3 +115,46 @@ nestedList = [[1 .. n] | n <- [1 .. 5]] -- [[1], [1, 2], [1, 2, 3], [1, 2, 3, 4]
 
 fibs = 0 : 1 : zipWith (+) fibs (tail fibs) -- infinite list of fibonacci numbers, use 'take 10 fibs' to get first 10 fibonacci numbers
 
+numbers = [1..100]
+odd' n | trace ("\n called: " ++ show n ++ "\n") False = undefined
+odd' x = x `mod` 2 /= 0 -- == odd' x = mod x 2 /= 0
+getNodds n = take n (filter odd' numbers)
+
+{- Type Defining -}
+-- newtype USD = USD Double
+--   deriving (Show)
+-- newtype EUR = EUR Double
+--   deriving (Show)
+
+data Currency = USD Double | EUR Double
+  deriving (Show)
+convert (USD v) = EUR (v * 1.1)
+convert (EUR v) = USD (v / 1.1)
+
+data Shape = Rectangle Float Float | Square Float
+
+-- Using the Shape type
+area :: Shape -> Float
+area (Rectangle width height) = width * height
+area (Square side) = side * side
+
+-- Data Tree
+data Tree = EmptyNode | Node Int Tree Tree
+  deriving (Show)
+tree = Node 1 
+  (Node 2 EmptyNode EmptyNode) 
+  (Node 3 EmptyNode EmptyNode)
+
+treeDepth :: Tree -> Int
+treeDepth EmptyNode = 0
+treeDepth (Node _ leftSubTree rightSubTree) = 
+  1 + max 
+    (treeDepth leftSubTree) 
+    (treeDepth rightSubTree)
+
+treeFind :: Tree -> Int -> Bool
+treeFind EmptyNode _ = False
+treeFind (Node value leftSubTree rightSubTree) target 
+  | value == target = True
+  | otherwise = (treeFind leftSubTree target)
+  | otherwise = (treeFind rightSubTree target)
