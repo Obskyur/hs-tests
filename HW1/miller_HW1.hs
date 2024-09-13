@@ -11,7 +11,7 @@ dropList :: Int -> [a] -> [a] -- dropList takes an Int and a List and returns a 
 dropList _ [] = []  -- Base case: empty list
 dropList n xs    -- Has two cases: n is less than or equal to 0 or n is greater than 0
   | n <= 0 = xs   -- Base case: n is less than or equal to 0
-  | otherwise = dropList (n - 1) (tail xs) -- Recursive case: drop the first element, decrement n
+  | otherwise = dropList (n - 1) (tail xs) -- Recursive case: decrement n, drop the first element
 
 -- b. splitAtIndex
 splitAtIndex :: Int -> [a] -> ([a], [a])    -- splitAtIndex takes an Int and a List and returns a tuple of two Lists
