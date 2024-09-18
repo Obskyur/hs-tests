@@ -141,20 +141,20 @@ area (Square side) = side * side
 -- Data Tree
 data Tree = EmptyNode | Node Int Tree Tree
   deriving (Show)
-tree = Node 1 
-  (Node 2 EmptyNode EmptyNode) 
+tree = Node 1
+  (Node 2 EmptyNode EmptyNode)
   (Node 3 EmptyNode EmptyNode)
 
 treeDepth :: Tree -> Int
 treeDepth EmptyNode = 0
-treeDepth (Node _ leftSubTree rightSubTree) = 
-  1 + max 
-    (treeDepth leftSubTree) 
+treeDepth (Node _ leftSubTree rightSubTree) =
+  1 + max
+    (treeDepth leftSubTree)
     (treeDepth rightSubTree)
 
 treeFind :: Tree -> Int -> Bool
 treeFind EmptyNode _ = False
-treeFind (Node value leftSubTree rightSubTree) target 
+treeFind (Node value leftSubTree rightSubTree) target
   | value == target = True
-  | otherwise = (treeFind leftSubTree target)
-  | otherwise = (treeFind rightSubTree target)
+  | otherwise = treeFind leftSubTree target
+  | otherwise = treeFind rightSubTree target
