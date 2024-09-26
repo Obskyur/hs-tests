@@ -121,6 +121,7 @@ odd' x = x `mod` 2 /= 0 -- == odd' x = mod x 2 /= 0
 getNodds n = take n (filter odd' numbers)
 
 {- Type Defining -}
+
 -- newtype USD = USD Double
 --   deriving (Show)
 -- newtype EUR = EUR Double
@@ -156,5 +157,5 @@ treeFind :: Tree -> Int -> Bool
 treeFind EmptyNode _ = False
 treeFind (Node value leftSubTree rightSubTree) target
   | value == target = True
-  | otherwise = treeFind leftSubTree target
+  | treeFind leftSubTree target = True
   | otherwise = treeFind rightSubTree target
