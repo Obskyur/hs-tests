@@ -50,9 +50,23 @@ pprint x = if x < 0.0
 
 -- equivalent to >>= (monadic operator):
 myCompose3 :: Maybe a -> (a -> Maybe b) -> Maybe b
-myCompose3 mx fnb1 = case mx of 
+myCompose3 mx fnb1 = case mx of
   Nothing -> Nothing
   Just x -> fnb1 x
 
 -- applies decrement to an input functor, and decrements by y:
 ndec mx y = fmap (\x -> x - y) mx
+
+chainRP x = recip' x >>= pprint
+
+chainRP' x = do
+  r <- recip' x
+  pprint r
+
+main = do
+  name <- getLine
+  putStrLn ("Hello, " ++ name)
+
+main' = getLine >>= (\x -> putStrLn ("Hello, " ++ x))
+
+main'' = getLine >>= putStrLn . ("Hello, " ++)
