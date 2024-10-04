@@ -30,6 +30,6 @@ mapMaybe :: (a -> Maybe b) -> [a] -> [b]
 mapMaybe _ [] = [] -- Base Case
 mapMaybe f (x : xs) =
   -- Recursive Case
-  case f x of
+  case f x of -- check if f x returns Just y or Nothing
     Just y -> y : mapMaybe f xs -- if f x returns Just y, add y to the front of the list
     Nothing -> mapMaybe f xs -- else continue with the rest of the list
